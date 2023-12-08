@@ -4,6 +4,7 @@ import com.twitter.tweets.application.TweetService;
 import com.twitter.tweets.application.SaveTweetDto;
 import com.twitter.tweets.infraestracture.controllers.request.PostTweetRequest;
 import com.twitter.tweets.infraestracture.controllers.response.PostTweetResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class TweetController {
 
     @PostMapping
     public PostTweetResponse postTweet(@RequestHeader("user_name") final String userName,
-                                       @RequestBody PostTweetRequest createTweetRequest) {
+                                       @Valid @RequestBody PostTweetRequest createTweetRequest) {
 
         final var savedTweet = tweetService.saveTweet(
                 new SaveTweetDto(userName, createTweetRequest.getContent())
